@@ -1,0 +1,91 @@
+:root {
+  --bg: #f6f7f9;
+  --panel: #fff;
+  --ink: #16202a;
+  --mute: #5a6775;
+  --line: #d9dee5;
+  --accent: #0b5c6b;
+  --accent-soft: #e7f6f8;
+  --warn: #8a5a00;
+  --warnbg: #fff4d6;
+  --err: #8f1d1d;
+  --errbg: #fde8e8;
+  --chart-sma7: #b8860b;
+  --chart-sma30: #8c63b8;
+  --chart-volume: rgba(120, 130, 140, .28);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #10161c;
+    --panel: #18212a;
+    --ink: #e6ebf0;
+    --mute: #9aa7b4;
+    --line: #2c3947;
+    --accent: #5cc2d3;
+    --accent-soft: #163641;
+    --warn: #f2c46b;
+    --warnbg: #3a2f12;
+    --err: #ffb4b4;
+    --errbg: #40181a;
+    --chart-sma7: #e6c45e;
+    --chart-sma30: #c4a3ec;
+    --chart-volume: rgba(150, 166, 180, .25);
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header, main, footer { max-width: 1100px; margin: 0 auto; padding: 12px 16px; }
+h1 { font-size: 1.4rem; margin: .2rem 0; }
+h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+h3 { font-size: 1rem; margin: 1rem 0 .5rem; }
+nav a { color: var(--accent); margin-right: 14px; }
+a { color: var(--accent); }
+.banner { padding: 8px 12px; border-radius: 6px; margin: 8px 0; border: 1px solid var(--line); overflow-wrap: anywhere; }
+.banner.warn { background: var(--warnbg); color: var(--warn); }
+.banner.err { background: var(--errbg); color: var(--err); }
+.banner[hidden] { display: none; }
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px; margin: 12px 0; min-width: 0; }
+section.signal { border-left: 4px solid var(--accent); }
+button, input { font: inherit; }
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.tabs button, .tools button, input { padding: 6px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
+.tabs button, .tools button { cursor: pointer; }
+.tabs button[aria-pressed="true"], .tools button[aria-pressed="true"] { background: var(--accent); color: var(--bg); font-weight: 600; }
+.tabs button:hover, .tools button:hover { border-color: var(--accent); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
+#q { width: min(100%, 260px); }
+.tablewrap { overflow-x: auto; width: 100%; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; }
+th, td { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:nth-child(-n+3), td:nth-child(-n+3) { text-align: left; }
+th button { appearance: none; border: 0; padding: 0; background: transparent; color: inherit; cursor: pointer; font-weight: 650; white-space: nowrap; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--accent-soft); }
+tbody tr:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+tr.sel { background: var(--accent-soft); }
+.star { background: none; border: 0; cursor: pointer; font-size: 1.1rem; color: var(--accent); padding: 0 4px; }
+.star:hover { transform: scale(1.1); }
+.positive { color: #16803c; }
+.negative { color: #c23b3b; }
+@media (prefers-color-scheme: dark) { .positive { color: #6ed49a; } .negative { color: #ff8f8f; } }
+.chartbox { position: relative; height: 350px; min-width: 0; }
+#chart { display: block; width: 100%; height: 100%; }
+.chart-tooltip { position: absolute; z-index: 2; max-width: min(250px, calc(100% - 16px)); padding: 7px 9px; border: 1px solid var(--line); border-radius: 5px; background: var(--panel); color: var(--ink); box-shadow: 0 2px 12px rgba(0,0,0,.18); white-space: pre-line; pointer-events: none; font-size: .8rem; }
+.chart-tooltip[hidden] { display: none; }
+.muted { color: var(--mute); font-size: .88rem; }
+.params { display: flex; flex-wrap: wrap; align-items: end; gap: 8px 12px; }
+.params label { display: inline-flex; align-items: center; gap: 6px; }
+.params input { width: 130px; }
+.params #p3 { width: 155px; }
+#run { padding: 7px 11px; border: 1px solid var(--line); border-radius: 4px; background: var(--accent); color: var(--bg); cursor: pointer; }
+#run:hover { opacity: .88; }
+footer { padding-bottom: 24px; }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 600px) {
+  header, main, footer { padding: 8px; }
+  h1 { font-size: 1.2rem; }
+  section { padding: 10px; }
+  .chartbox { height: 300px; }
+  .params label { align-items: flex-start; flex-direction: column; gap: 2px; }
+  .params input, .params #p3 { width: 100%; }
+}
