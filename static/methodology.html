@@ -1,41 +1,6 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Methodology and Limitations — Crypto Monitor</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Methodology and Limitations</h1>
-    <nav><a href="/">Back to dashboard</a></nav>
-  </header>
-  <main>
-    <section>
-      <h2>Data</h2>
-      <p>Live prices, 24-hour volume, and market capitalization come from CoinGecko's public API (<code>/coins/markets</code>, <code>/coins/{id}/market_chart</code>). The app validates response shapes and numeric values, drops malformed or duplicate rows, and shows missing optional metrics as “n/a”. Market and history responses are cached. If a refresh fails, cached values are shown with a stale warning; without a cache, the app shows an error rather than inventing a price.</p>
-      <p>CoinGecko automatically selects chart-data granularity on the public API. For shorter ranges this may be hourly, so the app samples the last available observation for each UTC day before calculating daily moving averages and volatility. It fetches an additional warm-up window so SMA 7 and SMA 30 can be calculated correctly for the displayed dates. In mock mode, all market values are synthetic and clearly labelled.</p>
-
-      <h2>Indicators</h2>
-      <ul>
-        <li><b>SMA(n)</b>: mean of the most recent <i>n</i> daily observations. The average is based on past prices and says nothing about future direction.</li>
-        <li><b>Volatility</b>: sample standard deviation of daily simple returns over the displayed period (percent). It describes past variability only.</li>
-        <li><b>Volume / market cap</b>: a rough activity ratio. It can be distorted by inflated or wash-traded volume and is not a valuation measure.</li>
-      </ul>
-
-      <h2>Rankings and screening</h2>
-      <p><b>Most actively traded</b> ranks assets by descending 24-hour USD volume, excluding assets with missing volume. The <b>Potential-opportunity screen</b> includes assets only when all user-set thresholds pass: minimum 24-hour percentage change, minimum volume-to-market-cap ratio, and minimum market cap. The screen reports measurable metrics; it is not a recommendation or a prediction.</p>
-
-      <h2>Limitations</h2>
-      <ul>
-        <li>Forecasting and backtesting are not implemented; the site makes no predictions.</li>
-        <li>Public API data can be delayed, rate-limited, temporarily unavailable, or different from another provider.</li>
-        <li>The watchlist is stored only in the current browser using local storage. Clearing browser data removes it.</li>
-        <li>The history display is daily-sampled data and is not intended for execution or high-frequency trading.</li>
-        <li>Educational use only; not financial advice.</li>
-      </ul>
-    </section>
-  </main>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Methodology and Limitations</title><link rel="stylesheet" href="style.css"></head><body>
+<header><h1>Methodology and Limitations</h1><nav><a href="/">Back to dashboard</a></nav></header><main><section>
+<h2>Data</h2><p>Prices, 24h volume and market cap come from CoinGecko's public API (<code>/coins/markets</code>, <code>/coins/{id}/market_chart</code>). Responses are validated (malformed and duplicate rows dropped, missing fields shown as "n/a") and cached. If a refresh fails, cached data is shown with a visible stale warning; if none exists, an error is shown, never a fake price. In mock mode, all numbers are synthetic and a banner says so.</p>
+<h2>Indicators</h2><ul><li><b>SMA(n)</b>: mean of the last n daily closes. Lags price; says nothing about direction ahead.</li><li><b>Volatility</b>: sample standard deviation of daily simple returns over the selected period (percent). Past variability only.</li><li><b>Volume / market cap</b>: a rough activity ratio. Distorted by inflated or wash-traded volume.</li></ul>
+<h2>Rankings and screening</h2><p><b>Most actively traded</b> = descending 24h volume. <b>Potential opportunity</b> = coins that satisfy all user-set thresholds on 24h change, volume/market cap and market cap. Every result shows its metrics. The screen is a filter on measurable data, not a recommendation.</p>
+<h2>Limitations</h2><ul><li>Forecasting and backtesting are not implemented; the site makes no predictions.</li><li>Free API data may be delayed, rate-limited, or differ across providers.</li><li>The watchlist is stored in your browser only (localStorage).</li><li>Educational use only; not financial advice.</li></ul></section></main></body></html>

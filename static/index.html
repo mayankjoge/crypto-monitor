@@ -11,12 +11,12 @@
 <section aria-labelledby="h-chart"><h2 id="h-chart">Price history: <span id="coinname">select a coin</span></h2>
 <div class="tools" id="periods" role="group" aria-label="Period"><button data-d="7" aria-pressed="false">7d</button><button data-d="30" aria-pressed="true">30d</button><button data-d="90" aria-pressed="false">90d</button><button data-d="365" aria-pressed="false">1y</button>
 <button id="t7" aria-pressed="true">SMA 7</button><button id="t30" aria-pressed="true">SMA 30</button></div>
-<div class="chartbox"><canvas id="chart" role="img" aria-label="Daily price and trading-volume chart"></canvas><div id="chartTooltip" class="chart-tooltip" role="status" hidden></div></div><p class="muted" id="chartnote">Click a row to load its chart.</p></section>
+<div class="chartbox"><canvas id="chart" role="img" aria-label="Price and volume chart"></canvas></div><p class="muted" id="chartnote">Click a row to load its chart.</p></section>
 <section class="signal" aria-labelledby="h-sig"><h2 id="h-sig">Analytical signals (rules, not predictions)</h2>
 <h3>Most actively traded</h3><p class="muted" id="activerule"></p><ol id="active"></ol>
-<h3>Potential-opportunity screen</h3><div class="params"><label>Min 24h change % <input id="p1" type="number" value="3" step="0.5" min="-100" max="1000"></label><label>Min volume/market cap <input id="p2" type="number" value="0.05" step="0.01" min="0" max="100"></label><label>Min market cap USD <input id="p3" type="number" value="1000000000" min="0" max="1000000000000000"></label><button id="run">Run screen</button></div>
+<h3>Potential-opportunity screen</h3><div class="params"><label>Min 24h change % <input id="p1" type="number" value="3" step="0.5"></label><label>Min volume/market cap <input id="p2" type="number" value="0.05" step="0.01" min="0"></label><label>Min market cap USD <input id="p3" type="number" value="1000000000" min="0"></label><button id="run">Run screen</button></div>
 <p class="muted" id="screenrule"></p><div class="tablewrap"><table><thead><tr><th>Coin</th><th>24h change</th><th>Volume/Mcap</th><th>Market cap</th></tr></thead><tbody id="screen"></tbody></table></div>
 <p class="muted">A match only means the thresholds were met. It does not mean the asset is undervalued or will rise. Metrics such as volume/market cap ignore news, liquidity quality, and manipulation (e.g. wash trading).</p></section>
-<section aria-labelledby="h-fc"><h2 id="h-fc">Model forecasts</h2><p class="muted">Not implemented (Tier 3 stretch goal). No forecast is shown rather than an unvalidated one.</p></section>
+<section aria-labelledby="h-fc"><h2 id="h-fc">Model forecasts</h2><p class="muted">The agent backtests a simple trend model against baselines on past data and shows a forecast only if it wins. Predictions are never exact.</p><button id="agent">Run agent</button><div id="agentout" aria-live="polite"></div></section>
 </main><footer class="muted">Data: CoinGecko public API (or labeled mock mode). Built by Mayank Joge for an academic assignment.</footer>
-<script src="app.js" defer></script></body></html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script><script src="app.js"></script></body></html>

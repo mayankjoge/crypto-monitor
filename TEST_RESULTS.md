@@ -1,26 +1,18 @@
-# Validation results
+# Test results
+Environment: sandbox with NO access to CoinGecko/Binance and no browser. 16 offline unit/API tests passed, plus a curl smoke test of the server in mock mode. Live data and the visual UI were **not** tested.
 
-The following checks were performed while repairing the repository:
-
-| Check | Result | Notes |
-|---|---|---|
-| Python syntax compilation | Passed | `app.py`, `analytics.py`, `providers.py`, and `tests/test_all.py` compile successfully; `bash -n run.sh` also passes. |
-| JavaScript syntax | Passed | `node --check static/app.js` completed successfully. |
-| Provider/analytics smoke test | Passed | Mock market generation, mock history warm-up, and analytics screening were exercised directly. |
-| Regression test logic | Passed (19 tests) | Test suite passed using a temporary lightweight Flask-compatible harness because Flask is not preinstalled in this offline sandbox. This checks the app's route logic but is not a substitute for testing against the real Flask server. The temporary harness is not included in the repo. |
-| Real Flask server integration | Not verified here | Installing Flask was blocked because package-index networking is unavailable in this sandbox. A normal local setup should install dependencies with `pip install -r requirements.txt` and run the test suite again. |
-| Live CoinGecko API | Not verified | Requires external network/API availability and may be rate-limited. |
-| Browser automation | Not verified | Headless Chromium did not complete page loading in this sandbox. The frontend JavaScript parses, and the chart no longer requires a third-party library; please perform the manual smoke checks in `DEMO_GUIDE.md` in a normal browser. |
-
-## Recommended local verification
-
-```bash
-# First run creates .venv, installs dependencies, and starts with synthetic data
-./run.sh                         # Windows: run.bat
-
-# In another terminal, from the project root:
-.venv/bin/python -m unittest discover -s tests -v
-curl http://127.0.0.1:5000/api/health
-curl http://127.0.0.1:5000/api/markets
-curl 'http://127.0.0.1:5000/api/history/alpha-coin?days=30'
-```
+| # | Criterion | Result | Notes |
+|---|-----------|--------|-------|
+| 1 | App starts per docs | Passed (mock mode only) | Started with `MOCK_MODE=1`; routes returned 200. Live start not tested |
+| 2 | Data loads/validated or clear error | Partial | Validation and 503/error paths unit tested; real CoinGecko never contacted |
+| 3 | Listing fields, search, sort, filter | Not tested | Fields verified via API; search/sort/filter are client JS, syntax-checked only |
+| 4 | Charts + period change | Partial | API returns correct point counts for 7/30/90/365 (365 capped at 365 points). Rendering not tested |
+| 5 | Watchlist | Not tested | localStorage-based, never run in a browser |
+| 6 | Rankings/screening follow rules | Passed | Unit and API tests (volume ordering, thresholds, missing metrics excluded) |
+| 7 | Indicators correct | Passed | SMA and volatility match hand-computed values |
+| 8 | Forecasts disclose details | Partial | Horizon, method, errors vs baselines and range shown in agent output; tested via API only, not in a browser |
+| 9 | Backtests no leakage | Passed | Unit test: altering future prices does not change earlier predictions (forecast backtest only; no trading backtest) |
+| 10 | Failures/stale/missing/invalid inputs | Passed (simulated) | Simulated outage, 429, stale cache, malformed/duplicate rows, bad params (400). Real failures not observed |
+| 11 | Desktop/mobile usable | Not tested | Responsive CSS written, never viewed |
+| 12 | No credentials client-side/logs | Passed (static check) | Test greps static files for key references |
+| 13 | Setup matches app | Partial | Run commands exercised except fresh-venv install and live mode |

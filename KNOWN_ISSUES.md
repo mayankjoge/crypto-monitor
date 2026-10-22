@@ -1,7 +1,6 @@
-# Remaining limitations
-
-- Forecasting, predictive modelling, and backtesting are intentionally not implemented; the dashboard does not make predictions.
-- CoinGecko public API rate limits and availability are outside the app's control. A failed refresh uses cached data when available and labels it stale; otherwise an error is displayed.
-- The API history endpoint covers periods up to 365 days. Intraday observations may be sampled to daily UTC closes for consistent SMA and volatility calculations.
-- The watchlist is local to the browser and is not synchronized across devices.
-- No alternate provider fallback (such as Binance) is implemented.
+# Known issues / unfinished
+- Forecasting is a simple trend model; trading-strategy backtest (fees, drawdown) not built. Agent is rule-based, not LLM-driven. Forecast quality on real data is unknown.
+- Live CoinGecko integration, browser UI, watchlist, charts, mobile layout: untested.
+- No Binance fallback. History limited to 365 days; free-tier rate limits can cause stale data.
+- Screening uses snapshot metrics only (no volume-spike history). Mock data is synthetic.
+- Flask does not auto-load `.env`.
